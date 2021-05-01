@@ -1,31 +1,62 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit';
 
-import * as actions from './actions';
+import {
+  fetchContactsRequest,
+  fetchContactsSuccess,
+  fetchContactsError,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+  changeFilter,
+} from './actions';
 
 const initialState = {
-  items: [
-    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  ],
+  items: [],
   filter: '',
+  loading: false,
+  error: null,
 };
 
-const itemsReducer = createReducer(initialState.items, {
-  [actions.addContact]: (state, { payload }) => [...state, payload],
-  [actions.deleteContact]: (state, { payload }) =>
-    state.filter(contact => contact.id !== payload),
+const items = createReducer(initialState.items, {
+
+  [fetchContactsSuccess]: (_, {payload}) => payload,
+  [addContactSuccess]: (state, { payload }) => [...state, payload],
+  [deleteContactSuccess]: (state, { payload }) =>
+    state.filter(({id}) => id !== payload),
 });
 
-const filterReducer = createReducer(initialState.filter, {
-  [actions.filterContacts]: (_, { payload }) => payload,
+const loading = createReducer(initialState.loading, {
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
+  [deleteContactRequest]: () => true,
+  [deleteContactSuccess]: () => false,
+  [deleteContactError]: () => false,
+  [fetchContactsRequest]: () => true,
+  [fetchContactsSuccess]: () => false,
+  [fetchContactsError]: () => false,
+});
+
+const error = createReducer(initialState.error, {
+  [addContactError]: (_, { payload }) => payload.message,
+  [deleteContactError]: (_, { payload }) => payload.message,
+  [fetchContactsError]: (_, { payload }) => payload.message,
+});
+
+
+const filter = createReducer(initialState.filter, {
+  [changeFilter]: (_, { payload }) => payload,
 });
 
 
 const contactsReducer = combineReducers({
-  items: itemsReducer,
-  filter: filterReducer,
+  items,
+  loading,
+  error,
+  filter,
 });
 
 export default contactsReducer;
