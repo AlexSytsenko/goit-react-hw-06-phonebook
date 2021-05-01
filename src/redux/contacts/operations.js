@@ -25,15 +25,21 @@ export const fetchContacts = () => dispatch => {
 
 export const addContact = contact => dispatch => {
   const { name } = contact;
+  const lite = { message: `${name} is already in contacts` };
 
   dispatch(addContactRequest());
 
   axios
     .get(`/contacts?q=${name}`)
     .then(({ data }) => {
-      data.length > 0
-        ? alert(`${name} is already in contacts`)
-        : axios
+      if (data.length > 0) {
+        // alert(`${name} is already in contacts`);
+        dispatch(addContactError(lite));
+        return;
+      }
+      // data.length > 0
+      //   ? alert(`${name} is already in contacts`)
+      axios
     .post('/contacts', contact)
     .then(({ data }) => dispatch(addContactSuccess(data)))
     .catch(error => dispatch(addContactError(error)));

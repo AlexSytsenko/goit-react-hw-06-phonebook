@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import shortid from 'shortid';
 
 import { addContact } from '../../redux/contacts/operations';
 import styles from './Form.module.scss';
@@ -22,11 +21,6 @@ class Form extends Component {
     e.preventDefault();
 
     const { name, number } = this.state;
-
-    // if (this.isUniqueContact(name)) {
-    //   alert(`${name} is already in contacts`);
-    //   return;
-    // }
 
     const contact = {
       name,
@@ -91,8 +85,8 @@ Form.propTypes = {
   contacts: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = state => ({
-  contacts: state.contacts.items,
+const mapStateToProps = ({ contacts: { items } }) => ({
+  contacts: items,
 });
 
 const mapDispatchToProps = dispatch => ({
