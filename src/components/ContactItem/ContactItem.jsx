@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import * as selectors from '../../redux/contacts/selectors';
 import * as operations from '../../redux/contacts/operations';
 import styles from './ContactItem.module.scss';
 
@@ -31,7 +32,7 @@ ContactsItem.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  contacts: state.contacts.items,
+  contacts: selectors.getAllContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({

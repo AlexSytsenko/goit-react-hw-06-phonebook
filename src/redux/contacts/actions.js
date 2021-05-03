@@ -12,7 +12,7 @@ export const deleteContactRequest = createAction('conatacts/deleteContactRequest
 export const deleteContactSuccess = createAction('conatacts/deleteContactSuccess');
 export const deleteContactError = createAction('conatacts/deleteContactError');
 
-
+export const clearContactsError = createAction('conatacts/clearContactsError');
 
 
 

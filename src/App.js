@@ -6,6 +6,7 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Form from './components/Form';
 import ContactsList from './components/ContactsList';
 import FilterContacts from './components/FilterContacts';
+import * as selectors from './redux/contacts/selectors';
 import './styles/container.scss';
 
   // import { ToastContainer, toast } from 'react-toastify';
@@ -33,9 +34,9 @@ Form.propTypes = {
   error: PropTypes.string,
 };
 
-const mapStateToProps = ({ contacts: { loading, error } }) => ({
-  loading,
-  error,
+const mapStateToProps = state => ({
+  loading: selectors.getLoading(state),
+  error: selectors.getError(state),
 });
 
 export default connect(mapStateToProps)(App);

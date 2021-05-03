@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import ContactsItem from '../ContactItem';
 import * as oparations from '../../redux/contacts/operations';
+import * as selectors from '../../redux/contacts/selectors';
 import styles from './ContactsList.module.scss';
 
 const ContactsList = ({ contacts, fetchContacts }) => {
@@ -21,19 +22,19 @@ ContactsList.propTypes = {
   contacts: PropTypes.array.isRequired,
 };
 
-const getVisibleContacts = (items, filter) => {
-  if (!filter) {
-    return items;
-  }
-  const normalizedFilter = filter.toLocaleLowerCase();
+// const getVisibleContacts = (items, filter) => {
+//   if (!filter) {
+//     return items;
+//   }
+//   const normalizedFilter = filter.toLocaleLowerCase();
 
-  return items.filter(contact =>
-    contact.name.toLocaleLowerCase().includes(normalizedFilter),
-  );
-};
+//   return items.filter(contact =>
+//     contact.name.toLocaleLowerCase().includes(normalizedFilter),
+//   );
+// };
 
-const mapStateToProps = ({ contacts: { items, filter } }) => ({
-  contacts: getVisibleContacts(items, filter),
+const mapStateToProps = (state) => ({
+  contacts: selectors.getVisibleContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({

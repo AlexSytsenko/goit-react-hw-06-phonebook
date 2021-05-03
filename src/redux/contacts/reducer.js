@@ -11,6 +11,7 @@ import {
   deleteContactSuccess,
   deleteContactError,
   changeFilter,
+  clearContactsError,
 } from './actions';
 
 const initialState = {
@@ -44,6 +45,7 @@ const error = createReducer(initialState.error, {
   [addContactError]: (_, { payload }) => payload.message,
   [deleteContactError]: (_, { payload }) => payload.message,
   [fetchContactsError]: (_, { payload }) => payload.message,
+  [clearContactsError]: () => null,
 });
 
 

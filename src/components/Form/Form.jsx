@@ -35,12 +35,6 @@ class Form extends Component {
     this.setState({ name: '', number: '' });
   };
 
-  isUniqueContact = name => {
-    const { contacts } = this.props;
-
-    return contacts.some(item => item.name === name);
-  };
-
   render() {
     const { name, number } = this.state;
 
@@ -85,12 +79,9 @@ Form.propTypes = {
   contacts: PropTypes.array.isRequired,
 };
 
-const mapStateToProps = ({ contacts: { items } }) => ({
-  contacts: items,
-});
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: value => dispatch(addContact(value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(null, mapDispatchToProps)(Form);

@@ -9,6 +9,7 @@ import {
   fetchContactsRequest,
   fetchContactsSuccess,
   fetchContactsError,
+  clearContactsError,
 } from './actions';
 
 axios.defaults.baseURL = 'http://localhost:4040';
@@ -25,7 +26,9 @@ export const fetchContacts = () => dispatch => {
 
 export const addContact = contact => dispatch => {
   const { name } = contact;
-  const lite = { message: `${name} is already in contacts` };
+  const massege = { message: `${name} is already in contacts` };
+
+  dispatch(clearContactsError());
 
   dispatch(addContactRequest());
 
@@ -34,7 +37,7 @@ export const addContact = contact => dispatch => {
     .then(({ data }) => {
       if (data.length > 0) {
         // alert(`${name} is already in contacts`);
-        dispatch(addContactError(lite));
+        dispatch(addContactError(massege));
         return;
       }
       // data.length > 0
@@ -50,6 +53,7 @@ export const addContact = contact => dispatch => {
 
 
 export const deleteContact = contactId => dispatch => {
+  dispatch(clearContactsError());
   dispatch(deleteContactRequest());
 
   axios
