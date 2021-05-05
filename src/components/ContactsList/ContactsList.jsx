@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ContactsItem from '../ContactItem';
-import * as oparations from '../../redux/contacts/operations';
+import * as operations from '../../redux/contacts/operations';
 import * as selectors from '../../redux/contacts/selectors';
 import styles from './ContactsList.module.scss';
 
@@ -22,6 +22,22 @@ ContactsList.propTypes = {
   contacts: PropTypes.array.isRequired,
 };
 
+
+const mapStateToProps = (state) => ({
+  contacts: selectors.getVisibleContacts(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchContacts: dispatch(operations.fetchContacts()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);
+
+
+
+
+
+
 // const getVisibleContacts = (items, filter) => {
 //   if (!filter) {
 //     return items;
@@ -32,13 +48,3 @@ ContactsList.propTypes = {
 //     contact.name.toLocaleLowerCase().includes(normalizedFilter),
 //   );
 // };
-
-const mapStateToProps = (state) => ({
-  contacts: selectors.getVisibleContacts(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchContacts: dispatch(oparations.fetchContacts()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);

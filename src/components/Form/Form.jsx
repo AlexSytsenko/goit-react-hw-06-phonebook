@@ -76,7 +76,6 @@ class Form extends Component {
 
 Form.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  contacts: PropTypes.array.isRequired,
 };
 
 

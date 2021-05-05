@@ -9,9 +9,6 @@ import FilterContacts from './components/FilterContacts';
 import * as selectors from './redux/contacts/selectors';
 import './styles/container.scss';
 
-  // import { ToastContainer, toast } from 'react-toastify';
-  // import 'react-toastify/dist/ReactToastify.css';
-
 const App = ({ loading, error }) => (
   <div className="container">
     <h2 className="title title__main">Phonebook</h2>

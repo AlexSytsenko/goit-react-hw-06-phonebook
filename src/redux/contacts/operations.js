@@ -36,12 +36,9 @@ export const addContact = contact => dispatch => {
     .get(`/contacts?q=${name}`)
     .then(({ data }) => {
       if (data.length > 0) {
-        // alert(`${name} is already in contacts`);
         dispatch(addContactError(massege));
         return;
       }
-      // data.length > 0
-      //   ? alert(`${name} is already in contacts`)
       axios
     .post('/contacts', contact)
     .then(({ data }) => dispatch(addContactSuccess(data)))

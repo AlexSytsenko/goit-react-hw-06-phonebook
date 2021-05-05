@@ -25,9 +25,13 @@ const ContactsItem = ({ contacts, value, onDeleteContact }) => {
   );
 };
 
+ContactsItem.defaultProps = {
+  contacts: [],
+};
+
 ContactsItem.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  value: PropTypes.string.isRequired,
+  contacts: PropTypes.array,
+  value: PropTypes.number.isRequired,
   onDeleteContact: PropTypes.func.isRequired,
 };
 
